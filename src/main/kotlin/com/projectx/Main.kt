@@ -1,25 +1,23 @@
 package com.projectx
 
 import javafx.application.Application
+import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
-import javafx.scene.control.Button
-import javafx.scene.layout.VBox
+import javafx.scene.layout.AnchorPane
 import javafx.stage.Stage
 
-class App : Application() {
+class GameApp : Application() {
     override fun start(stage: Stage) {
-        val button = Button("Start Game")
-        button.setOnAction { println("Game Started!") }
+        val fxmlLoader = FXMLLoader(javaClass.getResource("/MainView.fxml"))
+        val root: AnchorPane = fxmlLoader.load()
 
-        val root = VBox(button)
-        val scene = Scene(root, 400.0, 300.0)
-
-        stage.scene = scene
+        val scene = Scene(root, 800.0, 600.0)
         stage.title = "Project X"
+        stage.scene = scene
         stage.show()
     }
 }
 
 fun main() {
-    Application.launch(App::class.java)
+    Application.launch(GameApp::class.java)
 }

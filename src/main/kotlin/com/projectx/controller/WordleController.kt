@@ -1,17 +1,14 @@
 package com.projectx.controller
 
 import com.projectx.utils.GameUtils.setFixedWindowSize
-import javafx.animation.KeyFrame
-import javafx.animation.PauseTransition
-import javafx.animation.ScaleTransition
-import javafx.animation.Timeline
+import com.projectx.utils.OverlayUtil
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
 import javafx.scene.layout.GridPane
+import javafx.scene.layout.StackPane
 import javafx.stage.Stage
-import javafx.util.Duration
 
 class WordleController {
     @FXML
@@ -21,9 +18,15 @@ class WordleController {
     private lateinit var wordleSubmit: Button
 
     @FXML
-    private lateinit var wordleFeedback: Label
+    private lateinit var overlayPane: StackPane
 
-    private val correctWord = "APPLE" // Sample word
+    @FXML
+    private lateinit var overlayMessage: Label
+
+    @FXML
+    private lateinit var overlayButton: Button
+
+    private val correctWord = "APPLE"
     private var currentRow = 0
     private val maxAttempts = 6
     private val gridCells = Array(maxAttempts) { Array(5) { TextField() } }
@@ -32,12 +35,12 @@ class WordleController {
     fun initialize() {
         setupGrid()
         setFixedWindowSize(wordleSubmit.scene?.window as? Stage)
+
+        overlayPane.opacity = 0.0
+        overlayPane.isVisible = false
+
         wordleSubmit.setOnAction {
-            if (wordleSubmit.text == "Continue") {
-                showNextStepAnimation()
-            } else {
-                submitWord()
-            }
+            submitWord()
         }
     }
 
@@ -80,19 +83,13 @@ class WordleController {
 
         val userWord = gridCells[currentRow].joinToString("") { it.text.trim().uppercase() }
         if (userWord.length != 5) {
-            wordleFeedback.text = "Enter a full 5-letter word!"
+            OverlayUtil.showOverlay(overlayPane, overlayMessage, overlayButton, "Enter a full 5-letter word!", false, overlayPane.scene.window as Stage, null)
             return
         }
 
         for (i in userWord.indices) {
             val letter = userWord[i].toString()
             val cell = gridCells[currentRow][i]
-            val animation = ScaleTransition(Duration.millis(300.0), cell)
-            animation.byX = 1.2
-            animation.byY = 1.2
-            animation.cycleCount = 2
-            animation.isAutoReverse = true
-            animation.play()
 
             when {
                 letter == correctWord[i].toString() -> cell.style = "-fx-background-color: green; -fx-text-fill: white;"
@@ -102,8 +99,7 @@ class WordleController {
         }
 
         if (userWord == correctWord) {
-            wordleFeedback.text = "Congratulations! You guessed it!"
-            wordleSubmit.text = "Continue"
+            OverlayUtil.showOverlay(overlayPane, overlayMessage, overlayButton, "Congratulations! Moving to the next checkpoint...", true, overlayPane.scene.window as Stage, "/SnakesAndLadders.fxml")
             return
         }
 
@@ -111,18 +107,9 @@ class WordleController {
             for (cell in gridCells[currentRow]) cell.isEditable = false
             for (cell in gridCells[currentRow + 1]) cell.isEditable = true
         } else {
-            wordleFeedback.text = "Game Over! The word was $correctWord"
+            OverlayUtil.showOverlay(overlayPane, overlayMessage, overlayButton, "Game Over! The word was $correctWord", false, overlayPane.scene.window as Stage, null)
         }
 
         currentRow++
-    }
-
-    private fun showNextStepAnimation() {
-        wordleFeedback.text = "Moving to next checkpoint..."
-        val pause = PauseTransition(Duration.seconds(2.0))
-        pause.setOnFinished {
-            wordleFeedback.text = "Checkpoint 2: Snakes & Ladders!"
-        }
-        pause.play()
     }
 }

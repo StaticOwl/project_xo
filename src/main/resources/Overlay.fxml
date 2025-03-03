@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="overlayPane"
+           prefWidth="1200" prefHeight="800"
+           style="-fx-background-color: rgba(0, 0, 0, 0.5);"
+           opacity="0"
+           visible="false"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.projectx.controller.OverlayController">
+
+    <VBox spacing="20" alignment="CENTER"
+          style="-fx-background-color: white; -fx-padding: 20px; -fx-border-radius: 10px;">
+        <Label fx:id="overlayMessage" text="Game Over!"
+               style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <Button fx:id="overlayButton" text="Close"
+                style="-fx-font-size: 18px;"/>
+    </VBox>
+</StackPane>

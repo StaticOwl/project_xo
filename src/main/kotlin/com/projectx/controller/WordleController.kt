@@ -1,8 +1,8 @@
 package com.projectx.controller
 
 import com.projectx.utils.GameUtils.setFixedWindowSize
-import com.projectx.utils.OverlayUtil
 import javafx.fxml.FXML
+import javafx.fxml.FXMLLoader
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
@@ -20,11 +20,7 @@ class WordleController {
     @FXML
     private lateinit var overlayPane: StackPane
 
-    @FXML
-    private lateinit var overlayMessage: Label
-
-    @FXML
-    private lateinit var overlayButton: Button
+    private lateinit var overlayController: OverlayController
 
     private val correctWord = "APPLE"
     private var currentRow = 0
@@ -36,8 +32,7 @@ class WordleController {
         setupGrid()
         setFixedWindowSize(wordleSubmit.scene?.window as? Stage)
 
-        overlayPane.opacity = 0.0
-        overlayPane.isVisible = false
+        overlayController = overlayPane.properties["controller"] as OverlayController
 
         wordleSubmit.setOnAction {
             submitWord()
@@ -83,7 +78,7 @@ class WordleController {
 
         val userWord = gridCells[currentRow].joinToString("") { it.text.trim().uppercase() }
         if (userWord.length != 5) {
-            OverlayUtil.showOverlay(overlayPane, overlayMessage, overlayButton, "Enter a full 5-letter word!", false, overlayPane.scene.window as Stage, null)
+            overlayController.showOverlay("Enter a full 5-letter word!", false, wordGrid.scene.window as Stage, null)
             return
         }
 
@@ -99,7 +94,7 @@ class WordleController {
         }
 
         if (userWord == correctWord) {
-            OverlayUtil.showOverlay(overlayPane, overlayMessage, overlayButton, "Congratulations! Moving to the next checkpoint...", true, overlayPane.scene.window as Stage, "/SnakesAndLadders.fxml")
+            overlayController.showOverlay("Congratulations! Moving to the next checkpoint...", true, wordGrid.scene.window as Stage, "/SnakesAndLadders.fxml")
             return
         }
 
@@ -107,7 +102,7 @@ class WordleController {
             for (cell in gridCells[currentRow]) cell.isEditable = false
             for (cell in gridCells[currentRow + 1]) cell.isEditable = true
         } else {
-            OverlayUtil.showOverlay(overlayPane, overlayMessage, overlayButton, "Game Over! The word was $correctWord", false, overlayPane.scene.window as Stage, null)
+            overlayController.showOverlay("Game Over! The word was $correctWord", false, wordGrid.scene.window as Stage, null)
         }
 
         currentRow++

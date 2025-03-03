@@ -34,24 +34,6 @@
             AnchorPane.rightAnchor="0.0"
             alignment="CENTER"/>
 
-    <!-- Overlay Popup (Initially Hidden) -->
-    <StackPane fx:id="overlayPane"
-               prefWidth="950" prefHeight="708"
-               style="-fx-background-color: rgba(0, 0, 0, 0.5);"
-               opacity="0"
-               visible="false"
-               AnchorPane.leftAnchor="0.0"
-               AnchorPane.rightAnchor="0.0"
-               AnchorPane.topAnchor="0.0"
-               AnchorPane.bottomAnchor="0.0">
-
-        <VBox spacing="20" alignment="CENTER"
-              style="-fx-background-color: white; -fx-padding: 20px; -fx-border-radius: 10px;">
-            <Label fx:id="overlayMessage" text="Game Over!"
-                   style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
-            <Button fx:id="overlayButton" text="Close"
-                    style="-fx-font-size: 18px;"/>
-        </VBox>
-    </StackPane>
+    <fx:include fx:id="overlayPane" source="Overlay.fxml"/>
 
 </AnchorPane>

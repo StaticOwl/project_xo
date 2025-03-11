@@ -12,6 +12,7 @@ class GameApp : Application() {
         val root: AnchorPane = fxmlLoader.load()
 
         val scene = Scene(root, 800.0, 600.0)
+        scene.stylesheets.add(javaClass.getResource("/style.css")!!.toExternalForm())
         stage.title = "Project X"
         stage.scene = scene
         stage.show()

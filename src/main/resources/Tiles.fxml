@@ -32,4 +32,6 @@
            AnchorPane.rightAnchor="0.0"
            alignment="CENTER"/>
 
+    <fx:include fx:id="overlayPane" source="Overlay.fxml"/>
+
 </AnchorPane>

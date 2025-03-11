@@ -27,11 +27,12 @@ class OverlayController {
         overlayButton.setOnAction { handleOverlayButton() }
     }
 
-    fun showOverlay(message: String, isSuccess: Boolean, stage: Stage, nextCheckpointFXML: String?) {
+    fun showOverlay(message: String, isSuccess: Boolean, stage: Stage, nextCheckpointFXML: String?, putButton: Boolean = true) {
         this.nextCheckpointFXML = nextCheckpointFXML
 
         overlayMessage.text = message
         overlayButton.text = if (isSuccess) "Let's Go" else "Try Again"
+        overlayButton.isVisible = putButton
 
         overlayPane.isVisible = true
         val fadeIn = FadeTransition(Duration.seconds(0.5), overlayPane)

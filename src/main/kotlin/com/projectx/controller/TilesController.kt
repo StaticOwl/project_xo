@@ -6,6 +6,7 @@ import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.layout.GridPane
+import javafx.scene.layout.StackPane
 import javafx.stage.Stage
 import javafx.util.Duration
 import kotlin.random.Random
@@ -17,6 +18,11 @@ class TilesController {
     @FXML
     private lateinit var feedbackMessage: Label
 
+    @FXML
+    private lateinit var overlayPane: StackPane
+
+    private lateinit var overlayController: OverlayController
+
     private val gridSize = 3 // 3x3 grid
     private var correctTileRow = 0
     private var correctTileCol = 0
@@ -24,6 +30,8 @@ class TilesController {
     @FXML
     fun initialize() {
         setFixedWindowSize(gameGrid.scene?.window as? Stage)
+
+        overlayController = overlayPane.properties["controller"] as OverlayController
 
         // Randomly select the correct tile
         correctTileRow = Random.nextInt(gridSize)
@@ -54,18 +62,21 @@ class TilesController {
     }
 
     private fun showSuccess() {
-        feedbackMessage.text = "Congratulations!"
+        feedbackMessage.text = "🎉 Congratulations! 🎉"
+        feedbackMessage.style = "-fx-text-fill: blue; -fx-font-size: 24px; -fx-font-weight: bold;"
         val fadeOut = FadeTransition(Duration.seconds(2.0), gameGrid)
         fadeOut.fromValue = 1.0
         fadeOut.toValue = 0.0
         fadeOut.setOnFinished {
-            showBirthdayMessage()
+            overlayController.showOverlay(
+                "🎉 Happy Birthday! 🎂🎊",
+                true,
+                gameGrid.scene.window as Stage,
+                null,
+                putButton = false
+            )
         }
         fadeOut.play()
     }
 
-    private fun showBirthdayMessage() {
-        feedbackMessage.text = "🎉 Happy Birthday! 🎂🎊"
-        feedbackMessage.style = "-fx-text-fill: green; -fx-font-size: 32px; -fx-font-weight: bold;"
-    }
 }

@@ -41,6 +41,7 @@ class SnakesAndLaddersController {
     }
 
     private fun setupBoard() {
+        gameBoard.children.clear()
         for (row in 0 until boardSize) {
             for (col in 0 until boardSize) {
                 val cellNumber = calculateCellNumber(row, col)

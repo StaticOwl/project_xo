@@ -29,7 +29,7 @@ class WordleController {
 
     private lateinit var overlayController: OverlayController
 
-    private val correctWord = "APPLE"
+    private val correctWord = "PLUME"
     private var currentRow = 0
     private val maxAttempts = 6
     private val gridCells = Array(maxAttempts) { Array(5) { TextField() } }

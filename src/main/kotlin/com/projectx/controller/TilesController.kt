@@ -71,7 +71,6 @@ class TilesController {
             overlayController.showOverlay(
                 "🎉 Happy Birthday! 🎂🎊",
                 true,
-                gameGrid.scene.window as Stage,
                 null,
                 putButton = false
             )

@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
 <StackPane fx:id="overlayPane"
            prefWidth="1200" prefHeight="800"
-           style="-fx-background-color: rgba(0, 0, 0, 0.5);"
-           opacity="0"
+           styleClass="overlay-background"
            visible="false"
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.projectx.controller.OverlayController">
 
+    <ImageView fx:id="backgroundView"
+               fitWidth="1200" fitHeight="800"
+               visible="false"
+               preserveRatio="true"
+               style="-fx-background-color: transparent"
+               StackPane.alignment="CENTER" />
+
     <VBox spacing="20" alignment="CENTER"
-          style="-fx-background-color: white; -fx-padding: 20px; -fx-border-radius: 10px;">
+          style="-fx-background-color: transparent; -fx-padding: 20px; -fx-border-radius: 10px;">
         <Label fx:id="overlayMessage" text="Game Over!"
-               style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+               styleClass="overlay-text"/>
         <Button fx:id="overlayButton" text="Close"
-                style="-fx-font-size: 18px;"/>
+                styleClass="neon-button"/>
     </VBox>
 </StackPane>

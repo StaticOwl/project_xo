@@ -6,11 +6,15 @@
 <AnchorPane prefHeight="708.0" prefWidth="950.0"
             xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
+            style="-fx-background-image: url('assets/wordle_bg.jpg');
+                -fx-background-repeat: no-repeat;
+                -fx-background-size: cover;
+                -fx-background-position: center center;"
             fx:controller="com.projectx.controller.WordleController">
 
     <!-- Title -->
     <Label text="Wordle Game"
-           style="-fx-font-size: 28px; -fx-font-weight: bold;"
+           styleClass="label-title"
            AnchorPane.topAnchor="50.0"
            AnchorPane.leftAnchor="0.0"
            AnchorPane.rightAnchor="0.0"
@@ -25,13 +29,12 @@
               alignment="CENTER"/>
 
     <!-- Submit Button -->
-    <Button fx:id="wordleSubmit"
+    <Button fx:id="hintButton"
             prefWidth="200" prefHeight="50"
-            style="-fx-font-size: 18px;"
-            text="Submit"
+            styleClass="submit-button"
+            text="Hint"
             AnchorPane.topAnchor="650.0"
-            AnchorPane.leftAnchor="0.0"
-            AnchorPane.rightAnchor="0.0"
+            layoutX="500"
             alignment="CENTER"/>
 
     <fx:include fx:id="overlayPane" source="Overlay.fxml"/>

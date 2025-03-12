@@ -76,8 +76,10 @@ class SnakesAndLaddersController {
         updatePlayerPosition()
 
         if (playerPosition == totalSquares) {
-            overlayController.showOverlay("Congratulations! You've won Snakes & Ladders! 🎉", true,
-                gameBoard.scene.window as Stage, "/Tiles.fxml")
+            overlayController.showOverlay(
+                "Congratulations! You've won Snakes & Ladders! 🎉", true,
+                "/Tiles.fxml"
+            )
         }
     }
 

@@ -1,7 +1,9 @@
 package com.projectx.utils
 
+import com.projectx.GameApp
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
+import javafx.scene.Scene
 import javafx.stage.Stage
 import javafx.stage.Window
 import javafx.util.Duration
@@ -27,4 +29,23 @@ object GameUtils {
             timeline.play()
         }
     }
+
+    fun applyGlobalStyle(scene: Scene) {
+        scene.stylesheets.add(GameApp::class.java.getResource("/style.css")!!.toExternalForm())
+    }
+
+    fun buildButtonStyle(color: String, alpha: Double = 0.85): String {
+        return if (color.startsWith("#")) {
+            """
+        -fx-border-color: $color;
+        -fx-effect: dropshadow(gaussian, $color, 10, 0.6, 0, 0);
+        """.trimIndent()
+        } else {
+            """
+        -fx-border-color: rgba($color, $alpha);
+        -fx-effect: dropshadow(gaussian, rgba($color, $alpha), 10, 0.6, 0, 0);
+        """.trimIndent()
+        }
+    }
+
 }

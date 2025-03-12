@@ -1,5 +1,7 @@
 package com.projectx.controller
 
+import com.projectx.utils.GameUtils.applyGlobalStyle
+import com.projectx.utils.GameUtils.buildButtonStyle
 import com.projectx.utils.GameUtils.setFixedWindowSize
 import javafx.animation.*
 import javafx.application.Platform
@@ -36,7 +38,7 @@ class MainController {
         }
 
         startButton.isDisable = true
-        startButton.style = buildButtonStyle("0, 255, 255")
+        startButton.style = buildButtonStyle("0, 255, 0")
         startButton.opacity = 0.0
 
         nayButton.isDisable = true
@@ -139,7 +141,7 @@ class MainController {
         }
 
         nayButton.setOnMouseEntered {
-            nayButton.style = buildButtonStyle("0,255,0")
+            nayButton.style = buildButtonStyle("0,255,255")
         }
         nayButton.setOnMouseExited {
             nayButton.style = buildButtonStyle("255,0,0")
@@ -147,11 +149,11 @@ class MainController {
 
 
         startButton.setOnMouseEntered {
-            startButton.style = buildButtonStyle("0, 255, 0")
+            startButton.style = buildButtonStyle("0, 255, 255")
         }
 
         startButton.setOnMouseExited {
-            startButton.style = buildButtonStyle("0, 255, 255")
+            startButton.style = buildButtonStyle("0, 255, 0")
         }
 
     }
@@ -159,15 +161,9 @@ class MainController {
     private fun switchToWordle() {
         val fxmlLoader = FXMLLoader(javaClass.getResource("/WordleView.fxml"))
         val scene = Scene(fxmlLoader.load())
+        applyGlobalStyle(scene)
         val stage = startButton.scene.window as Stage
         stage.scene = scene
-    }
-
-    private fun buildButtonStyle(rgb: String): String {
-        return """
-        -fx-border-color: rgba($rgb, 0.85);
-        -fx-effect: dropshadow(gaussian, rgba($rgb, 0.85), 10, 0.6, 0, 0);
-    """.trimIndent()
     }
 
 }

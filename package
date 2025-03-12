@@ -1,0 +1,1 @@
+jlink --module-path "%JAVA_HOME%\jmods;C:\\Users\\<username>\\Application\\javafx-sdk-21.0.6\\jmods" --add-modules javafx.controls,javafx.fxml --output projectx-runtime

@@ -46,13 +46,13 @@ class TilesController {
                 val button = Button("Click")
                 button.prefWidth = 100.0
                 button.prefHeight = 100.0
-                button.style = "-fx-font-size: 18px;"
+                button.style = "-fx-font-size: 18px; -fx-background-radius: 12px;"
 
                 button.setOnAction {
                     if (row == correctTileRow && col == correctTileCol) {
                         showSuccess()
                     } else {
-                        feedbackMessage.text = "Try again!"
+                        triggerWrongFlip(button)
                     }
                 }
 
@@ -61,18 +61,43 @@ class TilesController {
         }
     }
 
+    private fun triggerWrongFlip(button: Button) {
+        val flipToMid = javafx.animation.RotateTransition(Duration.millis(200.0), button).apply {
+            fromAngle = 0.0
+            toAngle = 90.0
+            axis = javafx.geometry.Point3D(0.0, 1.0, 0.0)
+        }
+
+        val flipToEnd = javafx.animation.RotateTransition(Duration.millis(200.0), button).apply {
+            fromAngle = 90.0
+            toAngle = 180.0
+            axis = javafx.geometry.Point3D(0.0, 1.0, 0.0)
+        }
+
+        flipToMid.setOnFinished {
+            button.text = "\uD83C\uDF3A" // 🌺 or try 🌸 or 🌼
+            button.style = "-fx-font-size: 30px; -fx-background-color: #ffe0f0; -fx-background-radius: 12px;"
+            feedbackMessage.text = "Try again 🌼"
+            button.isDisable = true
+            flipToEnd.play()
+        }
+
+        flipToMid.play()
+    }
+
     private fun showSuccess() {
-        feedbackMessage.text = "🎉 Congratulations! 🎉"
+        feedbackMessage.text = "You got it, smarty! ✨"
         feedbackMessage.style = "-fx-text-fill: blue; -fx-font-size: 24px; -fx-font-weight: bold;"
         val fadeOut = FadeTransition(Duration.seconds(2.0), gameGrid)
         fadeOut.fromValue = 1.0
         fadeOut.toValue = 0.0
         fadeOut.setOnFinished {
             overlayController.showOverlay(
-                "🎉 Happy Birthday! 🎂🎊",
+                "\uD83C\uDF89 Happy Birthday, my girl! \uD83D\uDC96 Life is tough, growing up is tougher. But it's just like this game. You finish one, another comes! I am there with you, just like that hint button in Wordle, to support you whenever you need it. This is the final checkpoint, and you aced it, like everything else! \uD83C\uDF82\uD83C\uDF88",
                 true,
                 null,
-                putButton = false
+                putButton = false,
+                backgroundImage = "/assets/final.jpg"
             )
         }
         fadeOut.play()

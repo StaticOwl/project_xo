@@ -1,42 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0"
             xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
+            style="-fx-background-image: url('assets/snl_bg.jpg');
+                -fx-background-repeat: no-repeat;
+                -fx-background-size: cover;
+                -fx-background-position: center center;"
             fx:controller="com.projectx.controller.SnakesAndLaddersController">
 
     <!-- Title -->
     <Label text="Snakes &amp; Ladders"
-           style="-fx-font-size: 28px; -fx-font-weight: bold;"
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #8f8504"
            AnchorPane.topAnchor="20.0"
            AnchorPane.leftAnchor="0.0"
            AnchorPane.rightAnchor="0.0"
            alignment="CENTER"/>
 
-    <!-- Game Board -->
-    <GridPane fx:id="gameBoard"
-              hgap="5" vgap="5"
-              AnchorPane.topAnchor="100.0"
-              AnchorPane.leftAnchor="200.0"
-              AnchorPane.rightAnchor="200.0"
-              alignment="CENTER"/>
-
-    <!-- Dice & Player Info -->
-    <VBox spacing="10" alignment="CENTER"
+    <!-- Game Layout -->
+    <HBox spacing="40"
+          AnchorPane.topAnchor="80.0"
+          AnchorPane.leftAnchor="100.0"
+          AnchorPane.rightAnchor="100.0"
           AnchorPane.bottomAnchor="50.0"
-          AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="0.0">
-        <Label fx:id="positionLabel" text="Current Position: 1"
-               style="-fx-font-size: 20px;"/>
-        <Button fx:id="rollDiceButton" text="Roll Dice" prefWidth="150" prefHeight="50"/>
-    </VBox>
+          alignment="CENTER">
 
+        <!-- Game Board Stack -->
+        <StackPane prefWidth="600" prefHeight="600">
+            <GridPane fx:id="gameBoard"
+                      alignment="CENTER"
+                      gridLinesVisible="true"
+                      style="-fx-background-color: transparent;" />
+
+            <Pane fx:id="arrowOverlayPane"
+                  pickOnBounds="false"
+                  style="-fx-background-color: transparent;" />
+        </StackPane>
+
+        <!-- Right Panel Controls -->
+        <VBox spacing="30" alignment="TOP_CENTER">
+
+            <Button fx:id="rollDiceButton"
+                    text="Roll Dice"
+                    styleClass="submit-button"
+                    prefWidth="150" prefHeight="50" />
+
+            <!-- Position Label with Wrapping -->
+            <Label fx:id="positionLabel"
+                   text="Current Position: 1"
+                   wrapText="true"
+                   prefWidth="200"
+                   maxWidth="200"
+                   styleClass="overlay-text" />
+
+            <!-- Dice Button -->
+
+        </VBox>
+    </HBox>
+
+    <!-- Overlay -->
     <fx:include fx:id="overlayPane" source="Overlay.fxml"/>
 
 </AnchorPane>

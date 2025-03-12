@@ -78,7 +78,6 @@ class OverlayController {
             val bgUrl = (backgroundImage ?: "/assets/default_overlay.jpg").let {
                 javaClass.getResource(it)?.toExternalForm()
             }
-            overlayPane.style = ""
             overlayPane.style = """
             -fx-background-image: url('${bgUrl}');
                 """.trimIndent()

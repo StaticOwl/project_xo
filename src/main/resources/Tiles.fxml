@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
+            style="-fx-background-image: url('assets/tiles_bg.jpg');
+                -fx-background-repeat: no-repeat;
+                -fx-background-size: cover;
+                -fx-background-position: center center;"
             fx:controller="com.projectx.controller.TilesController"
             prefWidth="1200" prefHeight="800">
 
     <Label text="Find the Right Tile!"
-           style="-fx-font-size: 28px; -fx-font-weight: bold;"
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #74fa58"
            AnchorPane.topAnchor="50.0"
            AnchorPane.leftAnchor="0.0"
            AnchorPane.rightAnchor="0.0"

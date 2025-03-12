@@ -13,7 +13,7 @@
 .label-title {
     -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: black;
+    -fx-text-fill: #f6f2f2;
 }
 
 .wordle-cell {
@@ -46,4 +46,6 @@
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 4, 0.5, 0, 0);
 }
